@@ -5,9 +5,10 @@ g.p = require("gulp-load-plugins")()
 g.q = require("q")
 g.s = require("tiny-lr")()
 
-lazy   = require("lazypipe")
-rev    = (d) -> d.getFullYear() + z(d.getMonth() + 1) + z(d.getDate()) + z(d.getHours()) + z(d.getMinutes())
-z      = (x) -> ("0" + x).slice -2
+glob = require("glob")
+lazy = require("lazypipe")
+rev  = (d) -> d.getFullYear() + z(d.getMonth() + 1) + z(d.getDate()) + z(d.getHours()) + z(d.getMinutes())
+z    = (x) -> ("0" + x).slice -2
 
 g.types =
   fonts: ["eot", "svg", "ttf", "woff"]
@@ -25,4 +26,4 @@ if g.e != "dev"
 
 g.reload = lazy().pipe g.p.livereload, g.s
 
-require("fs").readdirSync("./gulp").forEach (task) -> require "./gulp/#{task}"
+require file for file in glob.sync "./gulp/*.coffee"
